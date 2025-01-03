@@ -2,6 +2,7 @@ package food_delivery.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,9 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime orderDate;
 
     private int totalItemCount;
 
