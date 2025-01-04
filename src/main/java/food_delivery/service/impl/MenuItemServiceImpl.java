@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MenuItemImpl implements MenuItemService {
+public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
 
@@ -33,5 +33,19 @@ public class MenuItemImpl implements MenuItemService {
             menuItem.setQuantity(menuItem.getQuantity() - cartItem.getQuantity());
             menuItemRepository.save(menuItem);
         });
+    }
+
+    @Override
+    public List<MenuItem> getMenuItemsByMenuId(Long menuId) {
+        return menuItemRepository.findByMenuId(menuId);
+    }
+
+    @Override
+    public void deleteMenuItemById(Long id) {
+        // Check if the menu item exists before attempting to delete
+        MenuItem menuItem = menuItemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Menu item not found with ID: " + id));
+        System.out.println(menuItem.toString());
+        menuItemRepository.deleteById(id);
     }
 }
