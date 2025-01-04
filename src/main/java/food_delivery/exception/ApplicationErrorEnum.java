@@ -32,7 +32,9 @@ public enum ApplicationErrorEnum {
     RESTAURANT_NOT_FOUND(HttpStatus.NOT_FOUND, "Restaurant not found."),
     //Cancel order
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND,"Order not found"),
-    CANCELED_STATUS_NOT_FOUND(HttpStatus.NOT_FOUND,"Canceled status not found");
+    CANCELED_STATUS_NOT_FOUND(HttpStatus.NOT_FOUND,"Canceled status not found"),
+
+    LOW_INVENTORY(HttpStatus.NOT_FOUND, "Low Inventory");
 
     private final HttpStatus status;
     private final String message;
