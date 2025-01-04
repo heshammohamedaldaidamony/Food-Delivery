@@ -1,9 +1,11 @@
 package food_delivery.model;
 
 import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -12,7 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="menu_item")
+@Table(name = "menu_item")
 public class MenuItem implements Serializable {
 
     @Id
@@ -20,7 +22,7 @@ public class MenuItem implements Serializable {
     @Column(name = "item_id")
     private Long menuItemId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
@@ -36,12 +38,12 @@ public class MenuItem implements Serializable {
     @Column(name = "quantity")
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "CARtITEM_ID")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cart_item_id")
     private CartItem cartItem;
 
     private boolean available;
