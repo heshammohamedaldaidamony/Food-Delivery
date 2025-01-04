@@ -34,7 +34,7 @@ public class MenuItem implements Serializable {
     private String description;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
