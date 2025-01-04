@@ -36,7 +36,7 @@ public class MenuItem implements Serializable {
     private String description;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "ORDER_ID")

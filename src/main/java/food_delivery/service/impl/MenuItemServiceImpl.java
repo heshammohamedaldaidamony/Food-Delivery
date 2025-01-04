@@ -1,5 +1,6 @@
 package food_delivery.service.impl;
 
+import food_delivery.dto.RestaurantOwnerDTO;
 import food_delivery.exception.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.model.CartItem;
@@ -35,6 +36,26 @@ public class MenuItemServiceImpl implements MenuItemService {
         });
     }
 
+    @Override
+    public MenuItem getMenuItemById(Long id,Long userId) {
+        MenuItem menuItem =  menuItemRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
+
+        RestaurantOwnerDTO restaurantOwnerDTO = menuItemRepository.findRestaurantOwnerIdByMenuItemId(id);
+
+        Long restaurantOwnerId = null;
+        if(restaurantOwnerDTO != null && restaurantOwnerDTO.getOwnerId() != null)
+            restaurantOwnerId = restaurantOwnerDTO.getOwnerId();
+
+
+        if(!menuItem.isAvailable() && !userId.equals(restaurantOwnerId))
+            throw new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND);
+
+        if(!userId.equals(restaurantOwnerId))
+            menuItem.setQuantity(null);
+
+        return menuItem;
+    }
     @Override
     public List<MenuItem> getMenuItemsByMenuId(Long menuId) {
         return menuItemRepository.findByMenuId(menuId);

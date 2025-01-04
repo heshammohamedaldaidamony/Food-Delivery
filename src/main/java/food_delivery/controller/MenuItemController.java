@@ -1,22 +1,29 @@
 package food_delivery.controller;
 
+import food_delivery.dto.MenuItemDTO;
+import food_delivery.mapper.MenuItemMapper;
+import food_delivery.model.MenuItem;
 import food_delivery.service.MenuItemService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/menu-items")
+@RequestMapping("/api/v1/menuItem")
 public class MenuItemController {
 
     private final MenuItemService menuItemService;
 
-    @Autowired
-    public MenuItemController(MenuItemService menuItemService) {
-        this.menuItemService = menuItemService;
-    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getMenuItemById(@PathVariable Long id,@RequestParam Long userId)
+    {
+        MenuItem menuItem = menuItemService.getMenuItemById(id,userId);
+        MenuItemDTO menuItemDTO = MenuItemMapper.toDto(menuItem);
 
+        return ResponseEntity.ok(menuItemDTO);
+    }
     /**
      * Delete a menu item by its ID.
      *
