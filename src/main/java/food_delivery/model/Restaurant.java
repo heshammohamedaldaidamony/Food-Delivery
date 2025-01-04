@@ -38,5 +38,6 @@ public class Restaurant implements Serializable {
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
-    
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false; // Default to false
 }
