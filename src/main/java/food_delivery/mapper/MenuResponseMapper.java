@@ -31,8 +31,7 @@ public class MenuResponseMapper {
                 menuItem.getItemName(),
                 menuItem.getPrice(),
                 menuItem.getDescription(),
-                menuItem.getQuantity(),
-                menuItem.isAvailable()
+                menuItem.getQuantity()
         );
     }
 }

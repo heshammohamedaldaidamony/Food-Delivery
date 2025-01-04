@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -46,6 +47,7 @@ public class MenuItem implements Serializable {
     @JoinColumn(name = "cart_item_id")
     private CartItem cartItem;
 
+    //to be fixed
     private boolean available;
 
 }
