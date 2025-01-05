@@ -1,5 +1,6 @@
 package food_delivery.controller;
 
+import food_delivery.request.MenuRequest;
 import food_delivery.response.MenuResponse;
 import food_delivery.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class MenuController {
         this.menuService = menuService;
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<MenuResponse> createMenu(@RequestBody MenuRequest menuRequest) {
+        return ResponseEntity.ok(menuService.createMenu(menuRequest));
+    }
     /**
      * Get a menu along with its menu items by menu ID.
      *
