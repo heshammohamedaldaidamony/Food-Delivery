@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/menus")
+@RequestMapping("/api/v1/menu")
 public class MenuController {
 
     private final MenuService menuService;
