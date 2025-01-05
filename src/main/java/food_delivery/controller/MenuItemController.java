@@ -3,6 +3,8 @@ package food_delivery.controller;
 import food_delivery.dto.MenuItemDTO;
 import food_delivery.mapper.MenuItemMapper;
 import food_delivery.model.MenuItem;
+import food_delivery.request.MenuItemRequest;
+import food_delivery.response.MenuItemResponse;
 import food_delivery.service.MenuItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,11 @@ public class MenuItemController {
 
     private final MenuItemService menuItemService;
 
+    @PostMapping("/create")
+    public ResponseEntity<MenuItemResponse> addMenuItem(@RequestBody MenuItemRequest menuItemRequest) {
+        MenuItemResponse menuItemResponse = menuItemService.addMenuItem(menuItemRequest);
+        return ResponseEntity.ok(menuItemResponse);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<?> getMenuItemById(@PathVariable Long id, @RequestParam Long userId) {
         MenuItem menuItem = menuItemService.getMenuItemById(id, userId);
