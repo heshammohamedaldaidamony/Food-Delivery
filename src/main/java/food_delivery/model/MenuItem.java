@@ -23,7 +23,7 @@ public class MenuItem implements Serializable {
     @Column(name = "item_id")
     private Long menuItemId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
@@ -39,11 +39,11 @@ public class MenuItem implements Serializable {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "cart_item_id")
     private CartItem cartItem;
 

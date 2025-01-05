@@ -63,10 +63,8 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Override
     public void deleteMenuItemById(Long id) {
-        // Check if the menu item exists before attempting to delete
-        MenuItem menuItem = menuItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu item not found with ID: " + id));
-        System.out.println(menuItem.toString());
+        menuItemRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
         menuItemRepository.deleteById(id);
     }
 }
