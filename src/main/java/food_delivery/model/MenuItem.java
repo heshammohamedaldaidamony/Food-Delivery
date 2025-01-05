@@ -47,7 +47,4 @@ public class MenuItem implements Serializable {
     @JoinColumn(name = "cart_item_id")
     private CartItem cartItem;
 
-    //to be fixed
-    private boolean available;
-
 }

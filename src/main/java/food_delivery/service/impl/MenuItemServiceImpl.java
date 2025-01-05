@@ -48,7 +48,7 @@ public class MenuItemServiceImpl implements MenuItemService {
             restaurantOwnerId = restaurantOwnerDTO.getOwnerId();
 
 
-        if(!menuItem.isAvailable() && !userId.equals(restaurantOwnerId))
+        if(menuItem.getQuantity() == 0 && !userId.equals(restaurantOwnerId))
             throw new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND);
 
         if(!userId.equals(restaurantOwnerId))
