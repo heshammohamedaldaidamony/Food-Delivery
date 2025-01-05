@@ -8,9 +8,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Disable CSRF
-                .cors().disable() // Disable CORS if you don't need it
-                .authorizeRequests().anyRequest().permitAll();// Stateless sessions
+                .csrf().disable()
+                .cors().disable()
+                .authorizeRequests().anyRequest().permitAll();
 
     }
 }
