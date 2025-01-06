@@ -33,4 +33,11 @@ public class MenuController {
         MenuResponse menuResponse = menuService.getMenuWithItems(id);
         return ResponseEntity.ok(menuResponse);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMenuById(@PathVariable Long id)
+    {
+        menuService.deleteMenuById(id);
+        return ResponseEntity.ok().build();
+    }
 }

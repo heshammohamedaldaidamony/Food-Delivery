@@ -14,6 +14,7 @@ import food_delivery.service.MenuItemService;
 import food_delivery.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +57,21 @@ public class MenuServiceImpl implements MenuService {
         return MenuResponseMapper.toMenuResponse(menu, menuItems);
     }
 
+    @Transactional
     @Override
-    public void deleteMenu(Long menuId) {
+    public void deleteMenuById(Long menuId) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(()->new BusinessException(ApplicationErrorEnum.MENU_NOT_FOUND));
 
+        Long restaurantMenuCount = menuRepository.countByRestaurant_Id(menu.getRestaurant().getId());
+        if(1L == restaurantMenuCount)
+        {
+            throw new RuntimeException("menu can not be deleted, it is the only one available for the restaurant");
+        }
+
+        //sets the foreign key for each menu item to null
+        menuRepository.setMenuNull(menuId);
+
+        menuRepository.delete(menu);
     }
 }
