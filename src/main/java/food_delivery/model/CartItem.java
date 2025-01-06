@@ -24,7 +24,7 @@ public class CartItem implements Serializable {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "menu_item_id")
     private MenuItem menuItem;
 
