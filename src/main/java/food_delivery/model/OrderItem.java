@@ -24,7 +24,7 @@ public class OrderItem implements Serializable {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-    @OneToOne
+	@ManyToOne
 	@JoinColumn(name = "menu_item_id")
 	private MenuItem menuItem;
 

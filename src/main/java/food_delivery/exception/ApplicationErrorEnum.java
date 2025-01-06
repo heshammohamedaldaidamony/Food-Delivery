@@ -36,6 +36,7 @@ public enum ApplicationErrorEnum {
 
     LOW_INVENTORY(HttpStatus.NOT_FOUND, "Low Inventory"),
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "Menu not found" );
+    
 
     private final HttpStatus status;
     private final String message;

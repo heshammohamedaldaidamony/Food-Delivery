@@ -56,6 +56,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         if(menuItem.getQuantity() == 0 && !userId.equals(restaurantOwnerId))
             throw new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND);
 
+        //user doesn't need to know quantity available in inventory
         if(!userId.equals(restaurantOwnerId))
             menuItem.setQuantity(null);
 
