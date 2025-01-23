@@ -55,7 +55,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "verification_code")
     private String verificationCode;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER , cascade = CascadeType.PERSIST)
     private List<UserRole> userRoles;
 
 
@@ -70,6 +70,11 @@ public class User implements Serializable, UserDetails {
     @Override
     public String getPassword() {
         return passwordHash;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
     }
 
     @Override

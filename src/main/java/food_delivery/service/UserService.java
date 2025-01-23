@@ -4,5 +4,5 @@ import food_delivery.dto.RegistrationDTO;
 import food_delivery.model.User;
 
 public interface UserService {
-    User registerNewUser(RegistrationDTO registrationDTO);
+    User registerNewUser(RegistrationDTO registrationDTO) throws Exception;
 }
