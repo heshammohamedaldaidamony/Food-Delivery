@@ -32,10 +32,19 @@ public enum ApplicationErrorEnum {
     TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED,"Token Not Found." ),
     RESTAURANT_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "RestaurantCategory not found."),
     RESTAURANT_NOT_FOUND(HttpStatus.NOT_FOUND, "Restaurant not found."),
+
+    //Cancel order
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND,"Order not found"),
+    CANCELED_STATUS_NOT_FOUND(HttpStatus.NOT_FOUND,"Canceled status not found"),
+
+    RESTAURANT_ALREADY_DELETED(HttpStatus.NOT_FOUND,"Restaurant already deleted" ),
+    RESTAURANT_HAS_ACTIVE_ORDERS(HttpStatus.CONFLICT,"Restaurant still has active orders." );
+
     ORDER_STATUS_FORBIDDEN(HttpStatus.FORBIDDEN , "Order status is forbidden"),
-    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "Order not found."),
+    
 
     ;
+
     private final HttpStatus status;
     private final String message;
 

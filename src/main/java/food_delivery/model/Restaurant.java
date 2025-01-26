@@ -24,10 +24,17 @@ public class Restaurant implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "address")
-    private String address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "rest_Details_id" , referencedColumnName = "restaurant_details_id")
+    private RestaurantDetails restaurantDetails;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
+    private Address address;    
 
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false; // Default to false
 }

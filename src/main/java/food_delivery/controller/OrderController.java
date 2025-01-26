@@ -7,12 +7,9 @@ import food_delivery.request.OrderRequest;
 import food_delivery.response.OrderResponse;
 import food_delivery.response.OrderStatusResponse;
 import food_delivery.service.OrderService;
-
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,20 +69,17 @@ public class OrderController {
         List<Order> orders = orderService.getOrderHistoryForCustomer(customerId);
         return ResponseEntity.ok(orders);
     }
+  
 
-    @GetMapping("/restaurant/{restaurantId}")
-    public ResponseEntity<List<Order>> getOrderHistoryForRestaurant(@PathVariable Long restaurantId) {
-        List<Order> orders = orderService.getOrderHistoryForRestaurant(restaurantId);
-        return ResponseEntity.ok(orders);
+    //Cancel Order
+    @PutMapping("cancel/{orderId}")
+    public ResponseEntity<String> cancelOrder(@PathVariable Long orderId) {
+        boolean isCanceled = orderService.cancelOrder(orderId);
+        if (isCanceled) {
+            return ResponseEntity.ok("Order canceled successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Order cannot be canceled");
+        }
     }
-    
-    @PutMapping("/complete/{orderId}")
-    public ResponseEntity<?> comleteOrder(@NotNull @PathVariable(name="orderId", required= true) Long orderId)
-    {
-    	 Order order = orderService.comleteOrder(orderId);
-        return ResponseEntity.ok(OrderMapper.toDto(order));
-    }
-	
-
 }
 
