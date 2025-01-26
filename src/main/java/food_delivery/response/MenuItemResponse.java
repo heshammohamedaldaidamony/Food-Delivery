@@ -13,5 +13,5 @@ public class MenuItemResponse {
     private String itemName;
     private BigDecimal price;
     private String description;
-    private int quantity;
+    private Integer quantity;
 }

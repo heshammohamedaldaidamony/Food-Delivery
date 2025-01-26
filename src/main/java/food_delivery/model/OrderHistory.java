@@ -22,9 +22,6 @@ public class OrderHistory {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @Column(nullable = false)
-    private LocalDateTime timestamp;
-
     @OneToOne
     @JoinColumn(name="restaurant_id" , nullable = false)
     private Restaurant restaurant ;

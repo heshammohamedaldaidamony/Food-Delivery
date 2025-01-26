@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Data
@@ -39,12 +40,11 @@ public class MenuItem implements Serializable {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
+    @OneToMany(mappedBy = "menuItem")
+    private List<CartItem> cartItems;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_item_id")
-    private CartItem cartItem;
+    @OneToMany(mappedBy = "menuItem")
+    private List<OrderItem> orderItems;
+
 
 }

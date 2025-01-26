@@ -4,8 +4,12 @@ import food_delivery.dto.RestaurantOwnerDTO;
 import food_delivery.exception.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.model.CartItem;
+import food_delivery.model.Menu;
 import food_delivery.model.MenuItem;
 import food_delivery.repository.MenuItemRepository;
+import food_delivery.repository.MenuRepository;
+import food_delivery.request.MenuItemRequest;
+import food_delivery.response.MenuItemResponse;
 import food_delivery.service.MenuItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,7 @@ import java.util.List;
 public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
+    private final MenuRepository menuRepository;
 
     @Override
     @Transactional
@@ -51,6 +56,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         if(menuItem.getQuantity() == 0 && !userId.equals(restaurantOwnerId))
             throw new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND);
 
+        //user doesn't need to know quantity available in inventory
         if(!userId.equals(restaurantOwnerId))
             menuItem.setQuantity(null);
 
@@ -66,5 +72,29 @@ public class MenuItemServiceImpl implements MenuItemService {
         menuItemRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
         menuItemRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public MenuItemResponse addMenuItem(MenuItemRequest menuItemRequest) {
+        // Find the menu by ID
+        Menu menu = menuRepository.findById(menuItemRequest.getMenuId())
+                .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_NOT_FOUND));
+
+        // Create a new menu item object
+        MenuItem menuItem = new MenuItem();
+        menuItem.setMenu(menu);
+        menuItem.setItemName(menuItemRequest.getItemName());
+        menuItem.setDescription(menuItemRequest.getDescription());
+        menuItem.setPrice(menuItemRequest.getPrice());
+
+        // Save the menu item
+        menuItemRepository.save(menuItem);
+
+        return new MenuItemResponse(menuItem.getMenuItemId(),
+                menuItem.getItemName(),
+                menuItem.getPrice(),
+                menuItem.getDescription(),
+                menuItem.getQuantity());
     }
 }

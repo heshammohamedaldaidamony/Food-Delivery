@@ -13,5 +13,5 @@ public class MenuItemDTO {
     private String itemName;
     private BigDecimal price;
     private String description;
-    private int quantity;
+    private Integer quantity;
 }
