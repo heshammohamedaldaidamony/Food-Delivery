@@ -13,6 +13,13 @@ import java.util.List;
 
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long>{
+
+    Long countByRestaurant_Id(Long id);
+
+    @Modifying
+    @Query("UPDATE MenuItem m SET m.menu = null WHERE m.menu.id = :menuId")
+    void setMenuNull(@Param("menuId") Long menuId);
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM menu WHERE restaurant_id = :restaurantId", nativeQuery = true)
