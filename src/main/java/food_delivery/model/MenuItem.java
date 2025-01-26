@@ -36,14 +36,5 @@ public class MenuItem implements Serializable {
     @Column(name = "quantity")
     private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "CARtITEM_ID")
-    private CartItem cartItem;
-
-    private boolean available;
 
 }

@@ -9,62 +9,44 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import lombok.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
+@Builder
 @Table(name = "\"order\"")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private Long orderId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "order_status_id", nullable = false)
+    private OrderStatus orderStatus;
+
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
-    private int totalItemCount;
+    @Column(name = "total_amount", nullable = false)
+    private BigDecimal totalAmount;
 
-    private int totalItemQuantity;
-
-    private BigDecimal totalPrice;
-    
     @ManyToOne
-    @JoinColumn(name = "order_status")
-    private OrderStatus orderStatus;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
-    
-    @ManyToOne
-    @JoinColumn(name = "address")
-    private Address deliveryAddress;
-
-    @OneToMany(mappedBy="order" , cascade = CascadeType.ALL)
-    private List<OrderItem> items = new ArrayList<>();
-    
-
 
     @Column(name = "notes")
     private String notes;
 
-    public void addItems(OrderItem orderItem)
-    {
-        items.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
-    public void removeItem(OrderItem orderItem) {
-        items.remove(orderItem);
-        orderItem.setOrder(null);
-    }
-
-
+    @Column(name = "delivery_address", nullable = true)
+    private String deliveryAddress;
 }
