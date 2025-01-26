@@ -7,8 +7,13 @@ import food_delivery.request.OrderRequest;
 import food_delivery.response.OrderResponse;
 import food_delivery.response.OrderStatusResponse;
 import food_delivery.service.OrderService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,5 +63,23 @@ public class OrderController {
         return ResponseEntity.ok(orderService.updateStatus(orderId , Long.valueOf(orderUpdateStatusDto.getOrderStatusId())));
     }
 
+    
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<Order>> getOrderHistoryForCustomer(@PathVariable Long customerId) {
+        List<Order> orders = orderService.getOrderHistoryForCustomer(customerId);
+        return ResponseEntity.ok(orders);
+    }
+  
+
+    //Cancel Order
+    @PutMapping("cancel/{orderId}")
+    public ResponseEntity<String> cancelOrder(@PathVariable Long orderId) {
+        boolean isCanceled = orderService.cancelOrder(orderId);
+        if (isCanceled) {
+            return ResponseEntity.ok("Order canceled successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Order cannot be canceled");
+        }
+    }
 }
 

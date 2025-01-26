@@ -33,10 +33,14 @@ public class Address implements Serializable {
 
     @Column(name = "ADDRESSLINE2" , nullable = true)
     private String addressLine2;
+    
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Restaurant restaurant;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-
+    
+    
 }
