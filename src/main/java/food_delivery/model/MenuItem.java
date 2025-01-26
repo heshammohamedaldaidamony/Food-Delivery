@@ -1,18 +1,22 @@
 package food_delivery.model;
 
 import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="menu_item")
+@Table(name = "menu_item")
 public class MenuItem implements Serializable {
 
     @Id
@@ -34,16 +38,13 @@ public class MenuItem implements Serializable {
     private String description;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
+    @OneToMany(mappedBy = "menuItem")
+    private List<CartItem> cartItems;
 
-    @ManyToOne
-    @JoinColumn(name = "CARtITEM_ID")
-    private CartItem cartItem;
+    @OneToMany(mappedBy = "menuItem")
+    private List<OrderItem> orderItems;
 
-    private boolean available;
 
 }

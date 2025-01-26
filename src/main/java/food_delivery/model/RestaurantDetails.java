@@ -15,10 +15,9 @@ public class RestaurantDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurant_details_id")
-    private Long Id;
+    private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "restaurantDetails")
     private Restaurant restaurant;
 
     @Column(name = "description")
@@ -26,7 +25,7 @@ public class RestaurantDetails{
 
     @OneToOne
     @JoinColumn(name = "owner_id")
-    private User user;
+    private User owner;
 
     @Column(name = "capacity")
     private Integer capacity;
