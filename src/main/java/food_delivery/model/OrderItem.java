@@ -18,21 +18,18 @@ public class OrderItem implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_item_id")
-	private Long orderItemId;
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-    @OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "menu_item_id")
 	private MenuItem menuItem;
 
 	@Column(name = "quantity", nullable = false)
 	private Integer quantity;
-
-    @Column(name = "price")
-    private BigDecimal price;
 
 
 }

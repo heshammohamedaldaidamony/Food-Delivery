@@ -24,15 +24,8 @@ public class Restaurant implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "REST_DETAILS_ID" , referencedColumnName = "REST_DETAILS_ID")
-    private RestaurantDetails restaurantDetails;
-
     @Column(name = "address")
     private String address;
-
-    @OneToMany(mappedBy ="restaurant" , fetch = FetchType.LAZY)
-    private List<Menu> menus;
 
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;

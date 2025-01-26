@@ -214,6 +214,22 @@ VALUES
 (9, 'Christopher', 'Davis', 24),
 (10, 'Mia', 'Martin', 25);
 
+
+-- cart
+INSERT INTO cart (customer_id, creation_date, total_amount, notes, is_locked)
+VALUES (1, NOW(), 0.00, 'Cart notes', 0);
+
+-- Retrieve the cart ID of the newly inserted cart
+SET @cartId = LAST_INSERT_ID();
+
+-- cart items
+INSERT INTO cart_item (cart_id, menu_item_id, quantity, price)
+VALUES
+    (@cartId, 47, 1, 10.50), -- Cart item for menu_item_id 47
+    (@cartId, 48, 2, 20.00), -- Cart item for menu_item_id 48
+    (@cartId, 49, 1, 15.00), -- Cart item for menu_item_id 49
+    (@cartId, 50, 3, 30.00); -- Cart item for menu_item_id 50
+
 -- Address
 INSERT INTO `address` (address_id, address_line1, addressline2, city, country, postal_code, customer_id)
 VALUES
@@ -544,3 +560,4 @@ INSERT INTO `order_tracking` (tracking_id, current_location, update_time, order_
 VALUES
 (69, 'Warehouse', '2024-12-20 07:00:00', 18, 1),  -- Order 16: Status = Pending
 (70, 'Preparing', '2024-12-20 08:30:00', 18, 4);  -- Order 16: Status = canceled
+

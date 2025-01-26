@@ -1,0 +1,35 @@
+fun getMenu(int restaurantId);
+fun createCart(int cutomerId , Item[] selectedItems);
+fun placeOrder(Customer customer , Cart cart){
+	int pickType;
+	if(pickType==delivery){
+		String address;
+	}
+	else if(pickType==pickup){
+		Time pickupTime;
+	}
+	applyPromotion(code);
+	if(pay(paymentInfo)){
+		String orderStatus = createOrder(cart , cutomerId , restaurantId);
+		notifyCustomer(orderStatus , customerPhone);
+	{
+	
+	
+};
+
+fun creatOrder(Cart cart , customerId){
+	//create new order in db mapped to the customer and restaurant
+	String orderStatus = notifyRestaurant(restaurantId);     //accepted or rejected
+	if(orderStatus = "Accepted"){
+		orderStatus ="In Preparation"       //update
+	}
+	return orderStatus;
+}
+
+fun applyPromotion(String code){
+	validatePromotion(code , retaurantId);
+	// update order amount
+};
+fun pay(paymentInfo){
+	return validateThirdParty(paymentInfo )
+};
