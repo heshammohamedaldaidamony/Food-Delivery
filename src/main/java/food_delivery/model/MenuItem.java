@@ -46,4 +46,5 @@ public class MenuItem implements Serializable {
     @OneToMany(mappedBy = "menuItem")
     private List<OrderItem> orderItems;
 
+
 }
